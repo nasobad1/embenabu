@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Sấm Chớp & Mưa Ma Mị</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+  body {
+  font-family: 'Playfair Display', serif;
+}
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: black;
+    }
+
+    body {
+      background: url('https://motionbgs.com/media/1269/jinx-arcane.jpg') 
+        no-repeat center center fixed;
+      background-size: cover;
+      background-color: black;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .logo-center {
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+      animation: rotate 40s linear infinite;
+      z-index: 9999;
+    }
+
+    .logo-center img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+    }
+
+    @keyframes rotate {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .name-block {
+      position: fixed;
+      top: calc(20% + 120px); /* Dưới logo */
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 9999;
+      font-family: 'Segoe UI', sans-serif;
+    }
+.top-name {
+  font-size: 48px;
+  font-weight: bold;
+  color: #00f0ff;
+  text-shadow:
+    0 0 4px #00f0ff,
+    0 0 8px #00f0ff,
+    0 0 12px #cc00ff,
+    0 0 20px #cc00ff;
+  animation: pulseName 2s ease-in-out infinite;
+  margin-bottom: 6px;
+}
+
+
+.bottom-name {
+  font-size: 28px;
+  font-weight: 600;
+  color: #ededed;
+  text-shadow:
+    0 0 5px #00ffee,
+    0 0 10px #00ffee,
+    0 0 15px #0088ff;
+  animation: pulseName 2s infinite ease-in-out;
+}
+
+@keyframes glowName {
+  0%, 100% {
+    text-shadow:
+      0 0 5px #00ccff,
+      0 0 10px #00ccff,
+      0 0 20px #cc00ff;
+  }
+  50% {
+    text-shadow:
+      0 0 10px #00ccff,
+      0 0 20px #cc00ff,
+      0 0 30px #ff00ff;
+  }
+}
+
+@keyframes pulseName {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.85;
+  }
+}
+
+
+    #startScreen {
+      position: fixed;
+      z-index: 10000;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.85);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+      cursor: pointer;
+    }
+
+    .footer-links {
+      position: fixed;
+      top: calc(20% + 250px);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    .link-btn {
+      width: 280px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      background-color: white;
+      color: black;
+    }
+
+    .link-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    .fb { background-color: #3b5998; color: white; }
+    .ig { background-color: #E1306C; color: white; }
+    .yt { background-color: #FF0000; color: white; }
+    .phone { background-color: #222; color: white; }
+
+    .link-btn i {
+      font-size: 18px;
+    }
+	.dou {
+  background-color: #5e17eb;
+  color: white;
+}
+.dou:hover {
+  background-color: #7f3fff;
+}
+body {
+  background-color: #fffddf;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  color: #c75757;
+  text-align: center;
+  margin: 0;
+  padding: 100px 0;
+}
+
+.contact-box {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  font-weight: 600;
+  font-size: 20px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 12px 25px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 174, 255, 0.5);
+  backdrop-filter: blur(8px);
+  text-align: center;
+  animation: fadeInUp 1.2s ease;
+}
+
+.discord-link {
+  color: #00aced;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  margin-left: 10px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(0, 172, 237, 0.15);
+  transition: all 0.3s ease;
+}
+
+.discord-link:hover {
+  color: #ffffff;
+  background: rgba(0, 172, 237, 0.3);
+  box-shadow: 0 0 10px #00aced, 0 0 20px #00aced;
+  text-decoration: none;
+}
+
+/* Hiệu ứng xuất hiện */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 40px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Mưa + Sấm -->
+  <canvas id="rainCanvas"></canvas>
+
+  <!-- Logo xoay chính giữa -->
+  <div class="logo-center">
+    <img src="logo2.jpg" alt="Logo Rồng Xoay">
+  </div>
+
+  <!-- Tên đẹp -->
+  <div class="name-block">
+    <div class="top-name">Nguyễn Ngân Hà</div>
+    <div class="bottom-name">embeNabu</div>
+  </div>
+
+  <!-- Các liên kết -->
+  <div class="footer-links">
+    <a href="https://www.facebook.com/nasobad1" class="link-btn fb" target="_blank">
+      <i class="fab fa-facebook-f"></i> Facebook
+    </a>
+    <a href="https://instagram.com/nabu_ig" class="link-btn ig" target="_blank">
+      <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://www.youtube.com/@Nabu.embenabu" class="link-btn yt" target="_blank">
+      <i class="fab fa-youtube"></i> YouTube
+    </a>
+	<a href="https://discord.gg/YE3J75u3" class="link-btn discord" target="_blank">
+      <i class="fab fa-discord"></i> Discord
+    </a>
+	<a href="https://playerduo.net/benajinx" class="link-btn dou" target="_blank">
+  <i class="fas fa-gamepad"></i> PlayerDou
+</a>
+
+    <a href="tel:0348776518" class="link-btn phone">
+      <i class="fas fa-phone-alt"></i> Gọi điện cho tôi
+    </a>
+	
+  </div>
+
+  <!-- Màn hình khởi động -->
+  <div id="startScreen">Bấm vào đây để tìm hiểu Nabu nhé...!</div>
+
+  <!-- Nhạc nền -->
+  <audio id="myAudio" loop>
+    <source src="sacmoi.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const canvas = document.getElementById('rainCanvas');
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = innerWidth;
+    let h = canvas.height = innerHeight;
+
+    const drops = [];
+    const dropCount = Math.floor(w / 2);
+
+    function RainDrop() {
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.len = Math.random() * 15 + 15;
+      this.speed = Math.random() * 2 + 4;
+      this.opacity = Math.random() * 0.5 + 0.2;
+    }
+
+    RainDrop.prototype.draw = function() {
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      ctx.lineTo(this.x, this.y + this.len);
+      ctx.strokeStyle = `rgba(200,200,255,${this.opacity})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    };
+
+    RainDrop.prototype.update = function() {
+      this.y += this.speed;
+      if (this.y > h) {
+        this.y = -20;
+        this.x = Math.random() * w;
+      }
+    };
+
+    for (let i = 0; i < dropCount; i++) {
+      drops.push(new RainDrop());
+    }
+
+    function drawRain() {
+      ctx.clearRect(0, 0, w, h);
+      drops.forEach(d => {
+        d.update();
+        d.draw();
+      });
+    }
+
+    const strikes = [];
+
+    function createLightning() {
+      const strike = {
+        x: Math.random() * w,
+        width: Math.random() * 2 + 1,
+        color: Math.random() < 0.3 ? '#caaaff' : 'white',
+        lifetime: 0
+      };
+      strikes.push(strike);
+    }
+
+    function drawStrikes() {
+      strikes.forEach((s, i) => {
+        ctx.beginPath();
+        ctx.moveTo(s.x, 0);
+        ctx.lineTo(s.x, h);
+        ctx.strokeStyle = s.color;
+        ctx.lineWidth = s.width;
+        ctx.globalAlpha = 0.6 * (1 - s.lifetime / 10);
+        ctx.stroke();
+        s.lifetime++;
+        if (s.lifetime > 10) {
+          strikes.splice(i, 1);
+        }
+      });
+      ctx.globalAlpha = 1;
+    }
+
+    function animate() {
+      drawRain();
+      drawStrikes();
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    setInterval(() => {
+      const count = Math.floor(Math.random() * 3) + 1;
+      for (let i = 0; i < count; i++) {
+        setTimeout(createLightning, Math.random() * 200);
+      }
+    }, 400);
+
+    window.addEventListener('resize', () => {
+      w = canvas.width = innerWidth;
+      h = canvas.height = innerHeight;
+    });
+
+    // Phát nhạc khi click
+    document.getElementById("startScreen").addEventListener("click", () => {
+      document.getElementById("myAudio").play();
+      document.getElementById("startScreen").style.display = "none";
+    });
+  </script>
+<!-- Nhúng font viết tay -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Bookmania', serif;
+    }
+
+    .contact-box {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      font-weight: 600;
+      font-size: 20px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 12px 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 174, 255, 0.5);
+      backdrop-filter: blur(8px);
+      text-align: center;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    .contact-box p {
+      margin: 0;
+      font-family: 'Dancing Script', cursive;
+      font-size: 26px;
+    }
+
+    .discord-link {
+      color: #00aced;
+      font-size: 28px;
+      font-weight: bold;
+      text-decoration: none;
+      margin-left: 10px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: rgba(0, 172, 237, 0.15);
+      transition: all 0.3s ease;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .discord-link:hover {
+      color: #ffffff;
+      background: rgba(0, 172, 237, 0.3);
+      box-shadow: 0 0 10px #00aced, 0 0 20px #00aced;
+      text-decoration: none;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translate(-50%, 40px);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contact-box">
+    <p>
+      Mọi thắc mắc xin liên hệ: 
+      <a href="https://discord.gg/YE3J75u3" target="_blank" class="discord-link">
+        embeNabu1
+      </a>
+    </p>
+  </div>
+
+
+</body>
+</html>

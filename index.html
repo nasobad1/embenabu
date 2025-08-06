@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <title>🔱embeNabu1🔱</title>
+  <meta charset="UTF-8">
+  <title>embeNabu1</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Dancing+Script&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Dancing+Script&display=swap" rel="stylesheet">
   <style>
     html, body {
       margin: 0;
@@ -98,7 +99,6 @@
       align-items: center;
       font-size: 2em;
       cursor: pointer;
-      user-select: none;
     }
 
     .footer-links {
@@ -127,14 +127,6 @@
       transition: all 0.3s ease;
       background-color: white;
       color: black;
-      cursor: pointer;
-    }
-
-    .link-btn:hover {
-      transform: scale(1.05);
-      background-color: #00ffff !important;
-      box-shadow: 0 0 10px #00ffff;
-      color: #000 !important;
     }
 
     .link-btn:hover {
@@ -150,24 +142,24 @@
 
     .phone { background-color: #222; color: white; }
 
-    .contact-box {
-      position: fixed;
-      bottom: 25px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9999;
-      font-weight: 600;
-      font-size: 20px;
-      color: #fff;
-      background: none;
-      padding: 0;
-      border-radius: 0;
-      box-shadow: none;
-      backdrop-filter: none;
-      text-align: center;
-      animation: none;
-      font-family: 'Dancing Script', cursive;
-    }
+   .contact-box {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  font-weight: 600;
+  font-size: 20px;
+  color: #fff;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  text-align: center;
+  animation: none;
+  font-family: 'Dancing Script', cursive;
+}
 
     .contact-box a {
       font-size: 24px;
@@ -227,43 +219,13 @@
     .close-btn:hover {
       color: #ff5b5b;
     }
-
-    /* Video Intro styles */
-    #introVideoWrapper {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: black;
-      z-index: 999999;
-      display: none; /* ẩn lúc đầu */
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    #introVideo {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 999999;
-    }
   </style>
 </head>
 <body>
-
-  <!-- Video mở đầu -->
-  <div id="introVideoWrapper">
-    <video id="introVideo" playsinline autoplay>
-  <source src="https://drive.google.com/uc?export=download&id=19auV_FVP1hhdri8ladlUxIkcyAzhwGcD" type="video/mp4" />
-  Trình duyệt của bạn không hỗ trợ video.
-</video>
-  </div>
-
   <canvas id="rainCanvas"></canvas>
 
   <div class="logo-center">
-    <img src="logo2.jpg" alt="Logo" />
+    <img src="logo2.jpg" alt="Logo">
   </div>
 
   <div class="name-block">
@@ -285,73 +247,109 @@
       <span>Liên hệ embeNabu</span>
       <button class="close-btn" onclick="togglePhonePopup()">&times;</button>
     </div>
-    <p>Số điện thoại: <strong>0348776518</strong><br />Nếu thấy tôi không nghe máy hãy gửi SMS, tôi sẽ sớm liên hệ lại</p>
+    <p>Số điện thoại: <strong>0348776518</strong><br>Nếu thấy tôi không nghe máy hãy gửi SMS, tôi sẽ sớm liên hệ lại</p>
   </div>
 
   <div class="contact-box">
     <p>Mọi thắc mắc xin liên hệ: <a href="https://discord.gg/YE3J75u3" target="_blank">embeNabu1</a></p>
   </div>
 
-  <div id="startScreen">Wellcome, Hãy xem 1 video ngắn thú vị về JINX trước khi vào phần Info nhé...!</div>
+  <div id="startScreen">Bấm vào đây để tìm hiểu Nabu nhé...!</div>
 
   <audio id="myAudio" loop>
-    <source src="sacmoi.mp3" type="audio/mpeg" />
+    <source src="sacmoi.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-  window.onload = function () {
-    const videoIntro = document.getElementById("introVideo");
-    const introWrapper = document.getElementById("introVideoWrapper");
-    const startScreen = document.getElementById("startScreen");
-    const myAudio = document.getElementById("myAudio");
+    const canvas = document.getElementById('rainCanvas');
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = innerWidth;
+    let h = canvas.height = innerHeight;
+    const drops = [];
+    const dropCount = Math.floor(w / 2);
 
-    // Ẩn mọi nội dung chính ban đầu
-    document.body.querySelectorAll(
-      "canvas, .logo-center, .name-block, .footer-links, .contact-box, .phone-popup"
-    ).forEach(el => el.style.display = "none");
+    function RainDrop() {
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.len = Math.random() * 15 + 15;
+      this.speed = Math.random() * 2 + 4;
+      this.opacity = Math.random() * 0.5 + 0.2;
+    }
 
-    // Hiện nút bắt đầu
-    startScreen.style.display = "flex";
+    RainDrop.prototype.draw = function() {
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      ctx.lineTo(this.x, this.y + this.len);
+      ctx.strokeStyle = `rgba(200,200,255,${this.opacity})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    };
 
-    // Khi user click vào màn hình
-    startScreen.addEventListener("click", () => {
-      startScreen.style.display = "none"; // Ẩn màn hình chào mừng
+    RainDrop.prototype.update = function() {
+      this.y += this.speed;
+      if (this.y > h) {
+        this.y = -20;
+        this.x = Math.random() * w;
+      }
+    };
 
-      // Hiện video intro
-      introWrapper.style.display = "flex";
-      videoIntro.currentTime = 0;
-      videoIntro.play().catch(() => {
-        alert("Trình duyệt đã chặn phát video. Vui lòng nhấn lại.");
+    for (let i = 0; i < dropCount; i++) drops.push(new RainDrop());
+
+    function drawRain() {
+      ctx.clearRect(0, 0, w, h);
+      drops.forEach(d => { d.update(); d.draw(); });
+    }
+
+    const strikes = [];
+    function createLightning() {
+      strikes.push({ x: Math.random() * w, width: Math.random() * 2 + 1, color: Math.random() < 0.3 ? '#caaaff' : 'white', lifetime: 0 });
+    }
+
+    function drawStrikes() {
+      strikes.forEach((s, i) => {
+        ctx.beginPath();
+        ctx.moveTo(s.x, 0);
+        ctx.lineTo(s.x, h);
+        ctx.strokeStyle = s.color;
+        ctx.lineWidth = s.width;
+        ctx.globalAlpha = 0.6 * (1 - s.lifetime / 10);
+        ctx.stroke();
+        s.lifetime++;
+        if (s.lifetime > 10) strikes.splice(i, 1);
       });
+      ctx.globalAlpha = 1;
+    }
 
-      // Đảm bảo nhạc nền tắt lúc đầu
-      myAudio.pause();
-      myAudio.currentTime = 0;
+    function animate() {
+      drawRain();
+      drawStrikes();
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    setInterval(() => {
+      const count = Math.floor(Math.random() * 3) + 1;
+      for (let i = 0; i < count; i++) setTimeout(createLightning, Math.random() * 200);
+    }, 400);
+
+    window.addEventListener('resize', () => {
+      w = canvas.width = innerWidth;
+      h = canvas.height = innerHeight;
     });
 
-    // Khi video kết thúc
-    videoIntro.addEventListener("ended", () => {
-      introWrapper.style.display = "none"; // Ẩn video intro
-
-      // Hiện lại các phần chính
-      document.body.querySelectorAll(
-        "canvas, .logo-center, .name-block, .footer-links, .contact-box"
-      ).forEach(el => el.style.display = "");
-
-      document.getElementById("phonePopup").style.display = "none";
-
-      // Bắt đầu phát nhạc nền
-      myAudio.play().catch(() => {}); // Phát nhạc nền
+    document.getElementById("startScreen").addEventListener("click", () => {
+      document.getElementById("myAudio").play();
+      document.getElementById("startScreen").style.display = "none";
     });
 
-    // Hàm bật/tắt popup điện thoại
-    window.togglePhonePopup = function (e) {
+    function togglePhonePopup(e) {
       if (e) e.preventDefault();
       const popup = document.getElementById("phonePopup");
       popup.style.display = (popup.style.display === "block") ? "none" : "block";
-    };
-  };
-</script>
-
+    }
+  </script>
 </body>
 </html>
+
+
+

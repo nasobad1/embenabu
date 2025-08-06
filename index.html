@@ -254,8 +254,10 @@
 
   <!-- Video mở đầu -->
   <div id="introVideoWrapper">
-	  <iframe src="https://drive.google.com/file/d/19auV_FVP1hhdri8ladlUxIkcyAzhwGcD/view?usp=drive_link" width="100%" height="100%" allow="autoplay" frameborder="0"></iframe>
-
+    <video id="introVideo" playsinline autoplay>
+  <source src="https://drive.google.com/uc?export=download&id=19auV_FVP1hhdri8ladlUxIkcyAzhwGcD" type="video/mp4" />
+  Trình duyệt của bạn không hỗ trợ video.
+</video>
   </div>
 
   <canvas id="rainCanvas"></canvas>
@@ -297,89 +299,6 @@
   </audio>
 
   <script>
-  const canvas = document.getElementById('rainCanvas');
-  const ctx = canvas.getContext('2d');
-  let w = canvas.width = innerWidth;
-  let h = canvas.height = innerHeight;
-  const drops = [];
-  const dropCount = Math.floor(w / 2);
-
-  function RainDrop() {
-    this.x = Math.random() * w;
-    this.y = Math.random() * h;
-    this.len = Math.random() * 15 + 15;
-    this.speed = Math.random() * 2 + 4;
-    this.opacity = Math.random() * 0.5 + 0.2;
-  }
-
-  RainDrop.prototype.draw = function () {
-    ctx.beginPath();
-    ctx.moveTo(this.x, this.y);
-    ctx.lineTo(this.x, this.y + this.len);
-    ctx.strokeStyle = `rgba(200,200,255,${this.opacity})`;
-    ctx.lineWidth = 1;
-    ctx.stroke();
-  };
-
-  RainDrop.prototype.update = function () {
-    this.y += this.speed;
-    if (this.y > h) {
-      this.y = -20;
-      this.x = Math.random() * w;
-    }
-  };
-
-  for (let i = 0; i < dropCount; i++) drops.push(new RainDrop());
-
-  function drawRain() {
-    ctx.clearRect(0, 0, w, h);
-    drops.forEach(d => { d.update(); d.draw(); });
-  }
-
-  const strikes = [];
-  function createLightning() {
-    strikes.push({
-      x: Math.random() * w,
-      width: Math.random() * 2 + 1,
-      color: Math.random() < 0.3 ? '#caaaff' : 'white',
-      lifetime: 0
-    });
-  }
-
-  function drawStrikes() {
-    strikes.forEach((s, i) => {
-      ctx.beginPath();
-      ctx.moveTo(s.x, 0);
-      ctx.lineTo(s.x, h);
-      ctx.strokeStyle = s.color;
-      ctx.lineWidth = s.width;
-      ctx.globalAlpha = 0.6 * (1 - s.lifetime / 10);
-      ctx.stroke();
-      s.lifetime++;
-      if (s.lifetime > 10) strikes.splice(i, 1);
-    });
-    ctx.globalAlpha = 1;
-  }
-
-  function animate() {
-    drawRain();
-    drawStrikes();
-    requestAnimationFrame(animate);
-  }
-  animate();
-
-  setInterval(() => {
-    const count = Math.floor(Math.random() * 3) + 1;
-    for (let i = 0; i < count; i++) {
-      setTimeout(createLightning, Math.random() * 200);
-    }
-  }, 400);
-
-  window.addEventListener('resize', () => {
-    w = canvas.width = innerWidth;
-    h = canvas.height = innerHeight;
-  });
-
   window.onload = function () {
     const videoIntro = document.getElementById("introVideo");
     const introWrapper = document.getElementById("introVideoWrapper");
@@ -396,7 +315,7 @@
 
     // Khi user click vào màn hình
     startScreen.addEventListener("click", () => {
-      startScreen.style.display = "none";
+      startScreen.style.display = "none"; // Ẩn màn hình chào mừng
 
       // Hiện video intro
       introWrapper.style.display = "flex";
@@ -412,7 +331,7 @@
 
     // Khi video kết thúc
     videoIntro.addEventListener("ended", () => {
-      introWrapper.style.display = "none";
+      introWrapper.style.display = "none"; // Ẩn video intro
 
       // Hiện lại các phần chính
       document.body.querySelectorAll(
@@ -422,7 +341,7 @@
       document.getElementById("phonePopup").style.display = "none";
 
       // Bắt đầu phát nhạc nền
-      myAudio.play().catch(() => {});
+      myAudio.play().catch(() => {}); // Phát nhạc nền
     });
 
     // Hàm bật/tắt popup điện thoại

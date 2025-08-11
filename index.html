@@ -219,6 +219,50 @@
     .close-btn:hover {
       color: #ff5b5b;
     }
+	.link-btn.glow-border {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.link-btn.glow-border::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00ab,
+    #ff0000
+  );
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  animation: glowing 20s linear infinite;
+  border-radius: 999px;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -234,12 +278,12 @@
   </div>
 
   <div class="footer-links">
-    <a href="https://www.facebook.com/nasobad1" class="link-btn fb" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
-    <a href="https://instagram.com/nabu_ig" class="link-btn ig" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-    <a href="https://www.youtube.com/@Nabu.embenabu" class="link-btn yt" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
-    <a href="https://discord.gg/YE3J75u3" class="link-btn" target="_blank"><i class="fab fa-discord"></i> Discord</a>
-    <a href="https://playerduo.net/benajinx" class="link-btn dou" target="_blank"><i class="fas fa-gamepad"></i> PlayerDou</a>
-    <a href="#" class="link-btn phone" onclick="togglePhonePopup(event)"><i class="fas fa-phone-alt"></i> Gọi điện cho tôi</a>
+    <a href="https://www.facebook.com/nasobad1" class="link-btn fb glow-border" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
+    <a href="https://instagram.com/nabu_ig" class="link-btn ig glow-border" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+    <a href="https://www.youtube.com/@Nabu.embenabu" class="link-btn yt glow-border" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+    <a href="https://discord.gg/YE3J75u3" class="link-btn glow-border" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+    <a href="https://playerduo.net/benajinx" class="link-btn dou glow-border" target="_blank"><i class="fas fa-gamepad"></i> PlayerDou</a>
+    <a href="#" class="link-btn phone glow-border" onclick="togglePhonePopup(event)"><i class="fas fa-phone-alt"></i> Gọi điện cho tôi</a>
   </div>
 
   <div class="phone-popup" id="phonePopup">

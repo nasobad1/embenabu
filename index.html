@@ -264,6 +264,14 @@
 }
 
   </style>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FS9Z5LN4GV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FS9Z5LN4GV');
+</script>
 </head>
 <body>
   <canvas id="rainCanvas"></canvas>
@@ -297,20 +305,7 @@
   <div class="contact-box">
     <p>Mọi thắc mắc xin liên hệ: <a href="https://discord.gg/YE3J75u3" target="_blank">embeNabu1</a></p>
   </div>
-<div id="visitor-counter-box" style="
-  position: fixed;
-  bottom: 10px;
-  right: 15px;
-  font-size: 14px;
-  color: #00ffcc;
-  background: rgba(0,0,0,0.4);
-  padding: 6px 12px;
-  border-radius: 10px;
-  z-index: 9999;
-  font-family: 'Segoe UI', sans-serif;
-">
-  👀 Đã có <span id="visit-counter">...</span> lượt ghé thăm
-</div>
+  <div>Số lượt truy cập: <span id="visitCount">0</span></div>
 
 
   <div id="startScreen">Bấm vào đây để tìm hiểu Nabu nhé...!</div>
@@ -407,14 +402,10 @@
       popup.style.display = (popup.style.display === "block") ? "none" : "block";
     }
 	// Đếm lượt truy cập bằng CountAPI
-fetch('https://api.countapi.xyz/hit/nasobad1-embenabu/visits')
+fetch('https://api.countapi.xyz/hit/embenabu/visits')
   .then(res => res.json())
   .then(data => {
-    document.getElementById('visit-counter').innerText = data.value.toLocaleString();
-  })
-  .catch(err => {
-    console.error("Không thể lấy số lượt truy cập:", err);
-    document.getElementById('visit-counter').innerText = "Không xác định";
+    document.getElementById('visitCount').innerText = data.value;
   });
 
   </script>

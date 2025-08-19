@@ -332,7 +332,7 @@
 </head>
 <body>
   <!-- Video Intro -->
-  <video id="introVideo" autoplay muted playsinline loop style="width:100vw; height:100vh; object-fit:cover;"> 
+  <video id="introVideo" autoplay muted playsinline style="width:100vw; height:100vh; object-fit:cover;"> 
   <source src="https://pixeldrain.com/api/file/thaoRrCQ?download" type="video/mp4"> Trình duyệt của bạn không hỗ trợ video. </video>
 
   <!-- Nút bỏ qua -->
@@ -534,7 +534,7 @@
     popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
   }
     window.addEventListener('load', () => {
-  const video = document.getElementById('myVideo');
+  const video = document.getElementById('introVideo');
 
   // Kiểm tra xem trình duyệt có phải là desktop (không phải mobile)
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -550,5 +550,6 @@
 
 </body>
 </html>
+
 
 

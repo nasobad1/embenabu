@@ -1,13 +1,19 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>embeNabu1</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Dancing+Script&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Dancing+Script&display=swap"
+    rel="stylesheet"
+  />
   <style>
-    html, body {
+    html,
+    body {
       margin: 0;
       padding: 0;
       height: 100%;
@@ -16,9 +22,35 @@
       font-family: 'Playfair Display', serif;
     }
 
-    body {
-      background: url('https://motionbgs.com/media/1269/jinx-arcane.jpg') no-repeat center center fixed;
-      background-size: cover;
+    #introVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 100000;
+      display: none;
+    }
+
+    #skipVideo {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100001;
+      padding: 10px 20px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      display: none;
+    }
+
+    #mainContent {
+      display: none;
+      overflow: hidden;
     }
 
     canvas {
@@ -29,6 +61,12 @@
       height: 100vh;
       pointer-events: none;
       z-index: 1;
+    }
+
+    body {
+      background: url('https://motionbgs.com/media/1269/jinx-arcane.jpg')
+        no-repeat center center fixed;
+      background-size: cover;
     }
 
     .logo-center {
@@ -51,8 +89,12 @@
     }
 
     @keyframes rotate {
-      from { transform: translate(-50%, -50%) rotate(0deg); }
-      to { transform: translate(-50%, -50%) rotate(360deg); }
+      from {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
     }
 
     .name-block {
@@ -69,7 +111,8 @@
       font-size: 48px;
       font-weight: bold;
       color: #00f0ff;
-      text-shadow: 0 0 4px #00f0ff, 0 0 8px #00f0ff, 0 0 12px #cc00ff, 0 0 20px #cc00ff;
+      text-shadow: 0 0 4px #00f0ff, 0 0 8px #00f0ff, 0 0 12px #cc00ff,
+        0 0 20px #cc00ff;
       animation: pulseName 2s ease-in-out infinite;
       margin-bottom: 6px;
     }
@@ -83,23 +126,34 @@
     }
 
     @keyframes pulseName {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.05); opacity: 0.85; }
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.05);
+        opacity: 0.85;
+      }
     }
 
-    #startScreen {
-      position: fixed;
-      z-index: 10000;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.85);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 2em;
-      cursor: pointer;
-    }
+    .startScreen {
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  cursor: pointer;
+  user-select: none;
+   }
+
 
     .footer-links {
       position: fixed;
@@ -123,43 +177,62 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       transition: all 0.3s ease;
       background-color: white;
       color: black;
+      user-select: none;
     }
 
     .link-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
     }
 
-    .fb { background-color: #3b5998; color: white; }
-    .ig { background-color: #E1306C; color: white; }
-    .yt { background-color: #FF0000; color: white; }
-    .dou { background-color: #5e17eb; color: white; }
-    .dou:hover { background-color: #7f3fff; }
+    .fb {
+      background-color: #3b5998;
+      color: white;
+    }
+    .ig {
+      background-color: #e1306c;
+      color: white;
+    }
+    .yt {
+      background-color: #ff0000;
+      color: white;
+    }
+    .dou {
+      background-color: #5e17eb;
+      color: white;
+    }
+    .dou:hover {
+      background-color: #7f3fff;
+    }
 
-    .phone { background-color: #222; color: white; }
+    .phone {
+      background-color: #222;
+      color: white;
+    }
 
-   .contact-box {
-  position: fixed;
-  bottom: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  font-weight: 600;
-  font-size: 20px;
-  color: #fff;
-  background: none;
-  padding: 0;
-  border-radius: 0;
-  box-shadow: none;
-  backdrop-filter: none;
-  text-align: center;
-  animation: none;
-  font-family: 'Dancing Script', cursive;
-}
+    .contact-box {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      font-weight: 600;
+      font-size: 20px;
+      color: #fff;
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      box-shadow: none;
+      backdrop-filter: none;
+      text-align: center;
+      animation: none;
+      font-family: 'Dancing Script', cursive;
+      user-select: none;
+    }
 
     .contact-box a {
       font-size: 24px;
@@ -167,20 +240,12 @@
       color: #00f537;
       text-decoration: none;
       margin-left: 10px;
-      background: none;
-      padding: 6px 12px;
-      border-radius: 8px;
     }
 
     .contact-box a:hover {
       background: rgba(0, 172, 237, 0.3);
       box-shadow: 0 0 10px #00aced, 0 0 20px #00aced;
       color: white;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translate(-50%, 40px); }
-      to { opacity: 1; transform: translate(-50%, 0); }
     }
 
     .phone-popup {
@@ -191,7 +256,7 @@
       border: 2px solid #00ffee;
       padding: 15px 20px;
       border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,255,255,0.4);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
       display: none;
       z-index: 99999;
       width: 280px;
@@ -219,199 +284,258 @@
     .close-btn:hover {
       color: #ff5b5b;
     }
-	.link-btn.glow-border {
-  position: relative;
-  z-index: 0;
-  overflow: hidden;
-}
 
-.link-btn.glow-border::before {
-  content: "";
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
-  background: linear-gradient(
-    45deg,
-    #ff0000,
-    #ff7300,
-    #fffb00,
-    #48ff00,
-    #00ffd5,
-    #002bff,
-    #7a00ff,
-    #ff00ab,
-    #ff0000
-  );
-  background-size: 400%;
-  z-index: -1;
-  filter: blur(5px);
-  animation: glowing 20s linear infinite;
-  border-radius: 999px;
-}
+    .link-btn.glow-border {
+      position: relative;
+      z-index: 0;
+      overflow: hidden;
+    }
 
-@keyframes glowing {
-  0% {
-    background-position: 0 0;
-  }
-  50% {
-    background-position: 400% 0;
-  }
-  100% {
-    background-position: 0 0;
-  }
-}
+    .link-btn.glow-border::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      background: linear-gradient(
+        45deg,
+        #ff0000,
+        #ff7300,
+        #fffb00,
+        #48ff00,
+        #00ffd5,
+        #002bff,
+        #7a00ff,
+        #ff00ab,
+        #ff0000
+      );
+      background-size: 400%;
+      z-index: -1;
+      filter: blur(5px);
+      animation: glowing 20s linear infinite;
+      border-radius: 999px;
+    }
 
+    @keyframes glowing {
+      0% {
+        background-position: 0 0;
+      }
+      50% {
+        background-position: 400% 0;
+      }
+      100% {
+        background-position: 0 0;
+      }
+    }
   </style>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FS9Z5LN4GV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-FS9Z5LN4GV');
-</script>
 </head>
 <body>
-  <canvas id="rainCanvas"></canvas>
+  <!-- Video Intro -->
+  <video id="introVideo" muted>
+    <source src="video3.mp4" type="video/mp4" />
+    Trình duyệt của bạn không hỗ trợ video.
+  </video>
 
-  <div class="logo-center">
-    <img src="logo2.jpg" alt="Logo">
-  </div>
+  <!-- Nút bỏ qua -->
+  <button id="skipVideo">Bỏ qua>></button>
 
-  <div class="name-block">
-    <div class="top-name">Nguyễn Ngân Hà</div>
-    <div class="bottom-name">embeNabu</div>
-  </div>
+  <!-- StartScreen 1 -->
+<div id="startScreen1" class="startScreen">
+  Xin chào, bấm vào đây xem 1 video ngắn nhé!
+</div>
 
-  <div class="footer-links">
-    <a href="https://www.facebook.com/nasobad1" class="link-btn fb glow-border" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
-    <a href="https://instagram.com/nabu_ig" class="link-btn ig glow-border" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-    <a href="https://www.youtube.com/@Nabu.embenabu" class="link-btn yt glow-border" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
-    <a href="https://discord.gg/YE3J75u3" class="link-btn glow-border" target="_blank"><i class="fab fa-discord"></i> Discord</a>
-    <a href="https://playerduo.net/benajinx" class="link-btn dou glow-border" target="_blank"><i class="fas fa-gamepad"></i> PlayerDou</a>
-    <a href="#" class="link-btn phone glow-border" onclick="togglePhonePopup(event)"><i class="fas fa-phone-alt"></i> Gọi điện cho tôi</a>
-  </div>
+<!-- StartScreen 2 -->
+<div id="startScreen2" class="startScreen" style="display:none;">
+  Bấm vào đây để xem thông tin của tôi nhé!
+</div>
 
-  <div class="phone-popup" id="phonePopup">
-    <div class="popup-header">
-      <span>Liên hệ embeNabu</span>
-      <button class="close-btn" onclick="togglePhonePopup()">&times;</button>
+
+  <!-- Nội dung chính -->
+  <div id="mainContent">
+    <canvas id="rainCanvas"></canvas>
+
+    <div class="logo-center">
+      <img src="logo2.jpg" alt="Logo" />
     </div>
-    <p>Số điện thoại: <strong>0348776518</strong><br>Nếu thấy tôi không nghe máy hãy gửi SMS, tôi sẽ sớm liên hệ lại</p>
+
+    <div class="name-block">
+      <div class="top-name">Nguyễn Ngân Hà</div>
+      <div class="bottom-name">embeNabu</div>
+    </div>
+
+    <div class="footer-links">
+      <a
+        href="https://www.facebook.com/nasobad1"
+        class="link-btn fb glow-border"
+        target="_blank"
+        ><i class="fab fa-facebook-f"></i> Facebook</a
+      >
+      <a
+        href="https://instagram.com/nabu_ig"
+        class="link-btn ig glow-border"
+        target="_blank"
+        ><i class="fab fa-instagram"></i> Instagram</a
+      >
+      <a
+        href="https://www.youtube.com/@Nabu.embenabu"
+        class="link-btn yt glow-border"
+        target="_blank"
+        ><i class="fab fa-youtube"></i> YouTube</a
+      >
+      <a
+        href="https://discord.gg/YE3J75u3"
+        class="link-btn glow-border"
+        target="_blank"
+        ><i class="fab fa-discord"></i> Discord</a
+      >
+      <a
+        href="https://playerduo.net/benajinx"
+        class="link-btn dou glow-border"
+        target="_blank"
+        ><i class="fas fa-gamepad"></i> PlayerDou</a
+      >
+      <a href="#" class="link-btn phone glow-border" onclick="togglePhonePopup(event)"
+        ><i class="fas fa-phone-alt"></i> Gọi điện cho tôi</a
+      >
+    </div>
+
+    <div class="phone-popup" id="phonePopup">
+      <div class="popup-header">
+        <span>Liên hệ embeNabu</span>
+        <button class="close-btn" onclick="togglePhonePopup()">&times;</button>
+      </div>
+      <p>
+        Số điện thoại: <strong>0348776518</strong
+        ><br />
+        Nếu thấy tôi không nghe máy hãy gửi SMS, tôi sẽ sớm liên hệ lại
+      </p>
+    </div>
+
+    <div class="contact-box">
+      <p>
+        Mọi thắc mắc xin liên hệ:
+        <a href="https://discord.gg/YE3J75u3" target="_blank">embeNabu1</a>
+      </p>
+    </div>
+
+    <div style="position: fixed; bottom: 10px; right: 10px; color: white">
+      Số lượt truy cập: <span id="visitCount">0</span>
+    </div>
+
+    <audio id="myAudio" loop>
+      <source src="nabu1.mp3" type="audio/mpeg" />
+    </audio>
   </div>
-
-  <div class="contact-box">
-    <p>Mọi thắc mắc xin liên hệ: <a href="https://discord.gg/YE3J75u3" target="_blank">embeNabu1</a></p>
-  </div>
-  <div>Số lượt truy cập: <span id="visitCount">0</span></div>
-
-
-  <div id="startScreen">Bấm vào đây để tìm hiểu Nabu nhé...!</div>
-
-  <audio id="myAudio" loop>
-    <source src="nabu1.mp3" type="audio/mpeg">
-  </audio>
 
   <script>
-    const canvas = document.getElementById('rainCanvas');
-    const ctx = canvas.getContext('2d');
-    let w = canvas.width = innerWidth;
-    let h = canvas.height = innerHeight;
-    const drops = [];
-    const dropCount = Math.floor(w / 2);
+  const video = document.getElementById('introVideo');
+  const startScreen1 = document.getElementById('startScreen1');
+  const startScreen2 = document.getElementById('startScreen2');
+  const skipBtn = document.getElementById('skipVideo');
+  const mainContent = document.getElementById('mainContent');
 
-    function RainDrop() {
-      this.x = Math.random() * w;
-      this.y = Math.random() * h;
-      this.len = Math.random() * 15 + 15;
-      this.speed = Math.random() * 2 + 4;
-      this.opacity = Math.random() * 0.5 + 0.2;
-    }
+  // Bấm startScreen1: ẩn startScreen1, hiện video + skip, play video
+  startScreen1.addEventListener('click', () => {
+    startScreen1.style.display = 'none';
+    video.style.display = 'block';
+    skipBtn.style.display = 'block';
 
-    RainDrop.prototype.draw = function() {
-      ctx.beginPath();
-      ctx.moveTo(this.x, this.y);
-      ctx.lineTo(this.x, this.y + this.len);
-      ctx.strokeStyle = `rgba(200,200,255,${this.opacity})`;
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    };
-
-    RainDrop.prototype.update = function() {
-      this.y += this.speed;
-      if (this.y > h) {
-        this.y = -20;
-        this.x = Math.random() * w;
-      }
-    };
-
-    for (let i = 0; i < dropCount; i++) drops.push(new RainDrop());
-
-    function drawRain() {
-      ctx.clearRect(0, 0, w, h);
-      drops.forEach(d => { d.update(); d.draw(); });
-    }
-
-    const strikes = [];
-    function createLightning() {
-      strikes.push({ x: Math.random() * w, width: Math.random() * 2 + 1, color: Math.random() < 0.3 ? '#caaaff' : 'white', lifetime: 0 });
-    }
-
-    function drawStrikes() {
-      strikes.forEach((s, i) => {
-        ctx.beginPath();
-        ctx.moveTo(s.x, 0);
-        ctx.lineTo(s.x, h);
-        ctx.strokeStyle = s.color;
-        ctx.lineWidth = s.width;
-        ctx.globalAlpha = 0.6 * (1 - s.lifetime / 10);
-        ctx.stroke();
-        s.lifetime++;
-        if (s.lifetime > 10) strikes.splice(i, 1);
-      });
-      ctx.globalAlpha = 1;
-    }
-
-    function animate() {
-      drawRain();
-      drawStrikes();
-      requestAnimationFrame(animate);
-    }
-    animate();
-
-    setInterval(() => {
-      const count = Math.floor(Math.random() * 3) + 1;
-      for (let i = 0; i < count; i++) setTimeout(createLightning, Math.random() * 200);
-    }, 400);
-
-    window.addEventListener('resize', () => {
-      w = canvas.width = innerWidth;
-      h = canvas.height = innerHeight;
-    });
-
-    document.getElementById("startScreen").addEventListener("click", () => {
-      document.getElementById("myAudio").play();
-      document.getElementById("startScreen").style.display = "none";
-    });
-
-    function togglePhonePopup(e) {
-      if (e) e.preventDefault();
-      const popup = document.getElementById("phonePopup");
-      popup.style.display = (popup.style.display === "block") ? "none" : "block";
-    }
-	// Đếm lượt truy cập bằng CountAPI
-fetch('https://api.countapi.xyz/hit/embenabu/visits')
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById('visitCount').innerText = data.value;
+    video.muted = false; // bật tiếng nếu muốn
+    video.play();
   });
 
-  </script>
+  // Khi video kết thúc
+  video.addEventListener('ended', () => {
+    showStartScreen2();
+  });
+
+  // Khi nhấn nút bỏ qua
+  skipBtn.addEventListener('click', () => {
+    showStartScreen2();
+  });
+
+  // Hiển thị startScreen2, ẩn video và nút skip
+  function showStartScreen2() {
+    video.pause();
+    video.style.display = 'none';
+    skipBtn.style.display = 'none';
+
+    startScreen2.style.display = 'flex';
+  }
+
+  // Bấm startScreen2: ẩn startScreen2, hiện mainContent, play audio
+  startScreen2.addEventListener('click', () => {
+  startScreen2.style.display = 'none';
+  mainContent.style.display = 'block';
+
+  // Phát nhạc
+  const audio = document.getElementById('myAudio');
+  audio.play();
+});
+  
+
+  // Đếm lượt truy cập
+  fetch('https://api.countapi.xyz/hit/embenabu/visits')
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('visitCount').innerText = data.value;
+    });
+
+  // Canvas mưa
+  const canvas = document.getElementById('rainCanvas');
+  const ctx = canvas.getContext('2d');
+  let w = (canvas.width = window.innerWidth);
+  let h = (canvas.height = window.innerHeight);
+  const drops = [];
+
+  function RainDrop() {
+    this.x = Math.random() * w;
+    this.y = Math.random() * h;
+    this.len = Math.random() * 15 + 15;
+    this.speed = Math.random() * 2 + 4;
+    this.opacity = Math.random() * 0.5 + 0.2;
+  }
+
+  RainDrop.prototype.draw = function () {
+    ctx.beginPath();
+    ctx.moveTo(this.x, this.y);
+    ctx.lineTo(this.x, this.y + this.len);
+    ctx.strokeStyle = `rgba(174,194,224,${this.opacity})`;
+    ctx.lineWidth = 1;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+  };
+
+  RainDrop.prototype.update = function () {
+    this.y += this.speed;
+    if (this.y > h) {
+      this.y = -this.len;
+      this.x = Math.random() * w;
+    }
+  };
+
+  for (let i = 0; i < 500; i++) {
+    drops.push(new RainDrop());
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, w, h);
+    for (let drop of drops) {
+      drop.update();
+      drop.draw();
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // Popup số điện thoại
+  function togglePhonePopup(e) {
+    if (e) e.preventDefault();
+    const popup = document.getElementById('phonePopup');
+    popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+  }
+</script>
+
 </body>
 </html>
-
-
-
-

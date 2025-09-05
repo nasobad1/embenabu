@@ -17,14 +17,16 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
+      overflow-y: auto; /* Cho phép cuộn dọc */
       background: black;
       font-family: 'Playfair Display', serif;
     }
 
     #mainContent {
-      display: none;
-      overflow: hidden;
+       display: block; /* thay từ none sang block để test */
+  overflow: visible;
+  position: relative;
+  z-index: 2;
     }
 
     canvas {
@@ -42,16 +44,23 @@
         no-repeat center center fixed;
       background-size: cover;
     }
-
+    .header-block {
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+  text-align: center;
+}
     .logo-center {
-      position: fixed;
-      top: 20%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 200px;
-      height: 200px;
-      animation: rotate 40s linear infinite;
-      z-index: 9999;
+    
+      position: relative;
+      margin: 0 auto 10px auto;
+    width: 200px;         /* 👈 tăng kích thước */
+    height: 200px;
+    animation: rotate 40s linear infinite;
+    z-index: 10;
+    display: block;
+    transform: translateX(100px); /* 👈 dịch sang phải nhẹ */
     }
 
     .logo-center img {
@@ -63,22 +72,21 @@
     }
 
     @keyframes rotate {
-      from {
-        transform: translate(-50%, -50%) rotate(0deg);
-      }
-      to {
-        transform: translate(-50%, -50%) rotate(360deg);
-      }
-    }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
     .name-block {
-      position: fixed;
-      top: calc(20% + 120px);
-      left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-      z-index: 9999;
-      font-family: 'Segoe UI', sans-serif;
+      
+      position: relative; /* từ fixed => relative */
+  margin-top: 50px;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  z-index: 10;
     }
 
     .top-name {
@@ -129,16 +137,28 @@
     }
 
     .footer-links {
-      position: fixed;
-      top: calc(20% + 250px);
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      z-index: 10;
+      position: static; /* thay fixed thành static */
+  margin: 40px auto 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 280px;
+  z-index: 10;
     }
-
+	.tier-list-container {
+ max-width: 900px;
+  margin: 30px auto 60px;
+  background: linear-gradient(180deg, #1e102f 0%, #2c1a4d 100%);
+  border-radius: 20px;
+  padding: 30px 40px;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+/* Giữ background cố định */
+body {
+  background: url('https://motionbgs.com/media/1269/jinx-arcane.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
     .link-btn {
       width: 280px;
       padding: 12px 20px;
@@ -301,26 +321,213 @@
         background-position: 0 0;
       }
     }
+	 /* Container chung cho Tier List */
+  .tier-list-container {
+    max-width: 900px;
+    margin: 30px auto;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, #2c1a4d 100%);
+    border-radius: 20px;
+    padding: 30px 40px;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  /* Tiêu đề phần */
+  .tier-list-container h2 {
+    font-weight: 900;
+    font-size: 24px;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+  }
+
+  /* Mỗi dòng tier */
+  .tier-row {
+    display: flex;
+    align-items: center;
+    background: #2f1f4b;
+    border-radius: 16px;
+    padding: 15px 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 8px rgb(255 255 255 / 0.1);
+  }
+
+  /* Viền bên trái theo tier */
+  .tier-row.s-tier {
+    border-left: 6px solid #ff6e8b;
+  }
+  .tier-row.a-tier {
+    border-left: 6px solid #ffa54f;
+  }
+
+  /* Chữ tier lớn */
+  .tier-rank {
+    font-weight: 900;
+    font-size: 26px;
+    min-width: 35px;
+    margin-right: 15px;
+    user-select: none;
+  }
+  .tier-rank.s-tier {
+    color: #ff6e8b;
+  }
+  .tier-rank.a-tier {
+    color: #ffa54f;
+  }
+
+  /* Khung từng tướng */
+  .champion-card {
+    margin-right: 15px;
+    text-align: center;
+    cursor: default;
+    flex-shrink: 0;
+  }
+
+  /* Ảnh tướng */
+  .champion-card img {
+    width: 72px;
+    height: 72px;
+    border-radius: 14px;
+    border: 3px solid;
+    object-fit: cover;
+    transition: transform 0.25s ease;
+  }
+
+  /* Viền ảnh theo tier */
+  .champion-card.s-tier img {
+    border-color: #ff6e8b;
+    box-shadow: 0 0 8px #ff6e8baa;
+  }
+  .champion-card.a-tier img {
+    border-color: #ffa54f;
+    box-shadow: 0 0 8px #ffa54faa;
+  }
+
+  /* Tên tướng */
+  .champion-name {
+    margin-top: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #eee;
+  }
+
+  /* Hover hiệu ứng nhỏ nhẹ */
+  .champion-card:hover img {
+    transform: scale(1.1);
+  }
+  .ranks-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 25px 30px;
+  background: linear-gradient(to bottom, #1c0f24, #2c1a4d);
+  border-radius: 14px;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+}
+
+.ranks-container h2 {
+  font-weight: 900;
+  font-size: 20px;
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+
+.ranks-list {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.rank-card {
+  background: #1c1c1c;
+  border-radius: 14px;
+  padding: 20px;
+  width: 160px;
+  text-align: center;
+  box-shadow: inset 0 0 0 1px #333;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.rank-card:hover {
+  transform: scale(1.05);
+}
+
+.rank-header {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* thêm dòng này */
+    gap: 8px;
+    margin-bottom: 14px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #ccc;
+    width: 100%;
+}
+
+.rank-header img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.rank-image {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 14px;
+}
+
+.rank-name {
+  font-weight: 900;
+  font-size: 14px;
+  color: #fff;
+}
+.rank-header img,
+.rank-card img.rank-icon {
+  display: none !important;
+}
+.rank-footer-text {
+  margin-top: 20px;
+  color: #ffdd57; /* màu vàng sáng */
+  font-size: 16px;
+  font-weight: 700; /* in đậm */
+  text-align: center;
+  padding: 8px 16px;
+  background-color: rgba(255, 221, 87, 0.2); /* nền vàng nhẹ */
+  border-radius: 8px;
+  text-shadow: 1px 1px 4px rgba(255, 221, 87, 0.7);
+  box-shadow: 0 0 8px rgba(255, 221, 87, 0.5);
+  transition: color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rank-footer-text:hover {
+  color: #fff;
+  box-shadow: 0 0 12px #fff;
+}
+
+
+
   </style>
 </head>
 <body>
   <!-- StartScreen 2 -->
   <div id="startScreen2" class="startScreen" style="display:none;">
-    Xin chào, Bắt đầu nhé!
+    Bấm vào đây để xem thông tin của tôi nhé!
   </div>
 
   <!-- Nội dung chính -->
   <div id="mainContent">
     <canvas id="rainCanvas"></canvas>
 
+    <div class="header-block">
+  <div class="name-block">
     <div class="logo-center">
       <img src="logo2.jpg" alt="Logo" />
     </div>
+    <div class="top-name">Nguyễn Ngân Hà</div>
+    <div class="bottom-name">embeNabu</div>
+  </div>
 
-    <div class="name-block">
-      <div class="top-name">Nguyễn Ngân Hà</div>
-      <div class="bottom-name">embeNabu</div>
-    </div>
 
     <div class="footer-links">
       <a
@@ -357,6 +564,95 @@
         ><i class="fas fa-phone-alt"></i> Gọi điện cho tôi</a
       >
     </div>
+	<div class="tier-list-container">
+	<div class="roles-container">
+  <h2>ROLES</h2>
+ 
+  <div class="roles-buttons">
+    <div class="role-button">
+      <img src="https://konect.gg/assets/images/GameLeagueOfLegendsRoleAdc.png" alt="ADC" />
+      
+    </div>
+   
+  </div>
+</div>
+  <h2>TIER LIST</h2>
+
+  <!-- Tier S -->
+  
+
+  <div class="tier-row s-tier">
+    <div class="tier-rank s-tier">S</div>
+    <div class="champion-card s-tier">
+      <img src="https://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/Twitch.png" alt="Twitch" />
+      <div class="champion-name">Twitch</div>
+    </div>
+    <div class="champion-card s-tier">
+      <img src="https://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/Jinx.png" alt="Jinx" />
+      <div class="champion-name">Jinx</div>
+    </div>
+    <div class="champion-card s-tier">
+      <img src="https://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/Kaisa.png" alt="Kai'Sa" />
+      <div class="champion-name">Kai'Sa</div>
+    </div>
+	<div class="champion-card s-tier">
+      <img src="https://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/Samira.png" alt="Samira" />
+      <div class="champion-name">Samira</div>
+    </div>
+  </div>
+
+  <!-- Tier A -->
+  <div class="tier-row a-tier">
+    <div class="tier-rank a-tier">A</div>
+    <div class="champion-card a-tier">
+      <img src="https://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/Jhin.png" alt="Jhin" />
+      <div class="champion-name">Jhin</div>
+    </div>
+    <div class="champion-card a-tier">
+      <img src="https://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/Ezreal.png" alt="Ezreal" />
+      <div class="champion-name">Ezreal</div>
+    </div>
+	<div class="champion-card a-tier">
+      <img src="https://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/Xayah.png" alt="Xayah" />
+      <div class="champion-name">Xayah</div>
+    </div><div class="champion-card a-tier">
+      <img src="https://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/Lucian.png" alt="Lucian" />
+      <div class="champion-name">Lucian</div>
+    </div>
+	
+	
+  </div>
+  <div class="ranks-container">
+  <h2>RANKS</h2>
+  <div class="ranks-list">
+    <div class="rank-card">
+      <div class="rank-header">
+        <img src="https://konect.gg/assets/images/GameLeagueOfLegends.svg" alt="LoL" />
+        <span>League of Legends Dou</span>
+      </div>
+      <img class="rank-image" src="https://caythue24.com/cdn/shop/products/lol_boost_480x480_crop_center_80579251-ef33-469c-9e34-fae2b8afc489.png?v=1624085389" alt="Challenger" />
+      <div class="rank-name">CHALLENGER</div>
+    </div>
+	<div class="rank-card">
+      <div class="rank-header">
+        <img src="https://konect.gg/assets/images/GameLeagueOfLegends.svg" alt="LoL" />
+        <span>Cặp Đôi Hoàn Hảo</span>
+      </div>
+      <img class="rank-image" src="https://caythue24.com/cdn/shop/products/lol_boost_480x480_crop_center_80579251-ef33-469c-9e34-fae2b8afc489.png?v=1624085389" alt="Challenger" />
+      <div class="rank-name">CHALLENGER</div>
+    </div>
+    <div class="rank-card">
+      <div class="rank-header">
+        <img src="https://caythue24.com/cdn/shop/products/lol_boost_480x480_crop_center_80579251-ef33-469c-9e34-fae2b8afc489.png?v=1624085389" alt="LoL" />
+        <span>League of Legends Flex</span>
+      </div>
+      <img class="rank-image" src="https://caythue24.com/cdn/shop/products/lol_boost_480x480_crop_center_80579251-ef33-469c-9e34-fae2b8afc489.png?v=1624085389" alt="Challenger" />
+      <div class="rank-name">CHALLENGER</div>
+    </div>
+  </div>
+  <!-- Thêm dòng text ở dưới cùng -->
+  <div class="rank-footer-text">Mình Có Nhận Làm Web Dạng Như Này Và Các Loại Bot Discord</div>
+</div>
 
     <div class="phone-popup" id="phonePopup">
       <div class="popup-header">
@@ -370,14 +666,9 @@
       </p>
     </div>
 
-    <div class="contact-box">
-      <p>
-        Mọi thắc mắc xin liên hệ:
-        <a href="https://discord.gg/YE3J75u3" target="_blank">embeNabu1</a>
-      </p>
-    </div>
+    
 
-  
+    
 
     <audio id="myAudio" loop>
       <source src="nabu1.mp3" type="audio/mpeg" />
@@ -467,4 +758,3 @@
   </script>
 </body>
 </html>
-
